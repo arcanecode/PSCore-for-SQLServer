@@ -1,5 +1,5 @@
 Set-Location .\Demo
-
+ 
 # Imports the following columns: "City", "StateShort", "StateFull", "County", "CityAlias"
 $cityData = Import-Csv -Path .\us_city_states.csv 
 
