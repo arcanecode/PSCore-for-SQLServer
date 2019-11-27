@@ -140,10 +140,15 @@ Import-Module SqlServer -RequiredVersion '21.1.18179'
 Get-Module SqlServer 
 
 # When done you can uninstall a no longer needed version by using the
-# same -RequiredVersion parameter
+# same -RequiredVersion parameter. Note if you don't pass in a version,
+# it will uninstall the most recent version
 Uninstall-Module SqlServer -RequiredVersion '21.1.18179'
 
 # Show it's gone
+Get-Module SqlServer -ListAvailable
+
+# Remove all installed versions
+Get-Module SqlServer -ListAvailable | Uninstall-Module
 Get-Module SqlServer -ListAvailable
 
 
