@@ -40,6 +40,7 @@ Update-Module SqlServer
 # If for whatever reason you no longer need the module, you can also 
 # uninstall it
 Uninstall-Module SqlServer
+Get-Module -ListAvailable SqlServer
 
 
 <#-----------------------------------------------------------------------------
@@ -144,13 +145,26 @@ Get-Module SqlServer
 # it will uninstall the most recent version
 Uninstall-Module SqlServer -RequiredVersion '21.1.18179'
 
-# Show it's gone
+# Show it's gone from disk
 Get-Module SqlServer -ListAvailable
 
-# Remove all installed versions
+# An odd quirk, even though 18179 has been removed from disk, because we
+# had it loaded in memory, it is still loaded in memory...
+Get-Module SqlServer 
+
+# Thus after Uninstalling a module, it is recommended you then do
+# a remove-module to be sure it is completely gone...
+if ($(Get-Module SqlServer).Count -gt 0)
+  { Remove-Module SqlServer }
+
+# You can remove all installed versions by using ListAvailable and piping it
+# to Uninstall
 Get-Module SqlServer -ListAvailable | Uninstall-Module
 Get-Module SqlServer -ListAvailable
 
+# If you want to continue with the examples in this video, don't forget
+# to install the most current version of the SqlServer module.
+Install-Module SqlServer -Force 
 
 <#-----------------------------------------------------------------------------
    A Note on Testing and Versions

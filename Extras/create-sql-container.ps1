@@ -48,7 +48,7 @@ Set-Location '/Users/arcanecode/OneDrive/APress/Code/PSCore-for-SQLServer'
   folder of the project. 
 #>
 
-bash ./Demo/m11-install-docker.sh 
+bash ./Extras/install-docker.sh 
 
 <#
   Installing the Docker Container with SQL Server
@@ -100,6 +100,7 @@ sudo docker run -e 'ACCEPT_EULA=Y' -e 'SA_PASSWORD=passW0rd!' -p 1433:1433 --nam
 # You can verify the container was installed and is running by 
 # listing the containers on your system
 sudo docker container ls
+sudo docker ps -a
 
 #------------------------------------------------------------------------------
 # Working with SQL Server from PowerShell
