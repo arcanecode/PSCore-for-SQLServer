@@ -26,7 +26,9 @@ $sqlParams = @{ 'ServerInstance' = 'localhost,1433'
                 'QueryTimeout' = 50000
               }
 
-# There are multiple methods to load data
+#------------------------------------------------------------------------------
+# Method 1 - Use embedded SQL
+#------------------------------------------------------------------------------
 $sql = @"
   USE MyCoolDatabase
   GO
@@ -41,9 +43,13 @@ Invoke-SqlCmd -Query $sql @sqlParams
 $sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
 Invoke-SqlCmd -Query $sql @sqlParams 
 
-# You could also compose and insert using variables
+#------------------------------------------------------------------------------
+# Method 2 - Create a insert statement from variables
+#------------------------------------------------------------------------------
+
 # Note we can use any names for the variables, but using the same name as
 # the column will make it easier to keep track of
+
 $city = 'Holtsville'
 $stateShort = 'NY'
 $stateFull = 'New York'
@@ -61,8 +67,42 @@ $sql = @"
 "@
 Invoke-SqlCmd -Query $sql @sqlParams 
 
+# Verify it is there
 $sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
 Invoke-SqlCmd -Query $sql @sqlParams | Format-Table
 
+#------------------------------------------------------------------------------
+# Method 3 - Load from an array row by row
+#------------------------------------------------------------------------------
+# Now we'lll create some custom objects into an array
+# and load the database from the array
+$cities = @( [PSCustomObject]@{ City = 'Adjuntas'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'ADJUNTAS'; 
+                                CityAlias = 'URB San Joaquin'
+                              }
+           , [PSCustomObject]@{ City = 'Adjuntas'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'ADJUNTAS'; 
+                                CityAlias = 'Jard De Adjuntas'
+                              }
+           , [PSCustomObject]@{ City = 'Adjuntas'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'ADJUNTAS'; 
+                                CityAlias = 'Colinas Del Gigante'
+                              }
+           , [PSCustomObject]@{ City = 'Adjuntas'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'ADJUNTAS'; 
+                                CityAlias = 'Adjuntas'
+                              }
+           )
 
+foreach($currentCity in $cities)
+{
 
+}
