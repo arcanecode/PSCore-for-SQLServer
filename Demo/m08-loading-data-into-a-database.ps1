@@ -104,5 +104,109 @@ $cities = @( [PSCustomObject]@{ City = 'Adjuntas';
 
 foreach($currentCity in $cities)
 {
+  $sql = @"
+  USE MyCoolDatabase
+  GO
+
+  INSERT INTO dbo.City 
+    (City, StateShort, StateFull, County, CityAlias)
+  VALUES
+    ( '$($currentCity.City)'
+    , '$($currentCity.StateShort)'
+    , '$($currentCity.StateFull)'
+    , '$($currentCity.County)'
+    , '$($currentCity.CityAlias)'
+    )
+"@
+  Invoke-SqlCmd -Query $sql @sqlParams 
 
 }
+
+
+# Verify it is there
+$sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
+Invoke-SqlCmd -Query $sql @sqlParams | Format-Table
+
+
+#------------------------------------------------------------------------------
+# Method 4 - Load from an array in one SQL statement
+#------------------------------------------------------------------------------
+# Lets reload the array with a new set of values
+$cities = @( [PSCustomObject]@{ City = 'Aguada'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'AGUADA'; 
+                                CityAlias = 'Comunidad Las Flores'
+                              }
+           , [PSCustomObject]@{ City = 'Aguada'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'AGUADA'; 
+                                CityAlias = 'URB Isabel La Catolica'
+                              }
+           , [PSCustomObject]@{ City = 'Aguada'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'AGUADA'; 
+                                CityAlias = 'Alts De Aguada'
+                              }
+           , [PSCustomObject]@{ City = 'Aguada'; 
+                                StateShort = 'PR'; 
+                                StateFull = 'Puerto Rico'; 
+                                County = 'AGUADA'; 
+                                CityAlias = 'Bo Guaniquilla'
+                              }
+           )
+
+# Here we'll setup a string builder so we can build a big string for our sql
+$sqlSB = [System.Text.StringBuilder]::new()
+
+$sqlHeader = @"
+USE MyCoolDatabase
+GO
+
+INSERT INTO dbo.City 
+  (City, StateShort, StateFull, County, CityAlias)
+VALUES
+"@
+
+[void]$sqlSB.AppendLine($sqlHeader)
+$originalLen = $sqlSB.Length
+
+foreach($currentCity in $cities)
+{
+  # Append a comma if it's after the first append
+  if ($sqlSB.Length -eq $originalLen)
+  {
+    [void]$sqlSB.Append('    ')
+  }
+  else 
+  {
+    [void]$sqlSB.Append('  , ')
+  }
+
+  $sql = @"
+( '$($currentCity.City)'
+    , '$($currentCity.StateShort)'
+    , '$($currentCity.StateFull)'
+    , '$($currentCity.County)'
+    , '$($currentCity.CityAlias)'
+    )
+"@
+  [void]$sqlSB.AppendLine($sql)
+}
+
+# Display the query we built (just for demo purposes)
+$sqlSB.ToString()
+
+# Now run the query against the server. Note when we use a StringBuilder
+# we have to convert using the ToString method before passing it to 
+# the Invoke-SqlCmd cmdlet
+Invoke-SqlCmd -Query $sqlSB.ToString() @sqlParams 
+
+# Verify it is there
+$sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
+Invoke-SqlCmd -Query $sql @sqlParams | Format-Table
+          
+
+
