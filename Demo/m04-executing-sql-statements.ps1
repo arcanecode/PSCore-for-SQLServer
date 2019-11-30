@@ -14,3 +14,11 @@
   written consent of the author. Portions may be be used within your own
   projects.
 -----------------------------------------------------------------------------#>
+
+Invoke-Sqlcmd -Query "SELECT * FROM master.INFORMATION_SCHEMA.Tables" `
+              -ServerInstance 'localhost,1433' `
+              -Database 'master' `
+              -Username 'sa' `
+              -Password 'passW0rd!' `
+              -QueryTimeout 50000
+              
