@@ -1,3 +1,6 @@
+USE MyCoolDatabase
+GO
+
 INSERT INTO dbo.City 
   (City, StateShort, StateFull, County, CityAlias)
 VALUES

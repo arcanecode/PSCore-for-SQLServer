@@ -27,6 +27,16 @@ $sqlParams = @{ 'ServerInstance' = 'localhost,1433'
               }
 
 #------------------------------------------------------------------------------
+# Before we begin, let's create a small function to display the present rows
+#------------------------------------------------------------------------------
+function Show-Rows()
+{
+  Clear-Host
+  $sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
+  Invoke-SqlCmd -Query $sql @sqlParams | Format-Table  
+}
+
+#------------------------------------------------------------------------------
 # Method 1 - Use embedded SQL
 #------------------------------------------------------------------------------
 $sql = @"
@@ -40,8 +50,7 @@ $sql = @"
 "@
 Invoke-SqlCmd -Query $sql @sqlParams 
 
-$sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
-Invoke-SqlCmd -Query $sql @sqlParams 
+Show-Rows
 
 #------------------------------------------------------------------------------
 # Method 2 - Create a insert statement from variables
@@ -68,8 +77,7 @@ $sql = @"
 Invoke-SqlCmd -Query $sql @sqlParams 
 
 # Verify it is there
-$sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
-Invoke-SqlCmd -Query $sql @sqlParams | Format-Table
+Show-Rows
 
 #------------------------------------------------------------------------------
 # Method 3 - Load from an array row by row
@@ -124,9 +132,7 @@ foreach($currentCity in $cities)
 
 
 # Verify it is there
-$sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
-Invoke-SqlCmd -Query $sql @sqlParams | Format-Table
-
+Show-Rows
 
 #------------------------------------------------------------------------------
 # Method 4 - Load from an array in one SQL statement
@@ -205,8 +211,5 @@ $sqlSB.ToString()
 Invoke-SqlCmd -Query $sqlSB.ToString() @sqlParams 
 
 # Verify it is there
-$sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
-Invoke-SqlCmd -Query $sql @sqlParams | Format-Table
+Show-Rows
           
-
-
