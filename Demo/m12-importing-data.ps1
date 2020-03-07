@@ -35,6 +35,7 @@ function Reset-Table ()
       
 }
 
+# Let's see what we just imported
 $data = Import-Csv './Demo/CityData.csv'
 $data | Select-Object -First 10 | Format-Table
 
