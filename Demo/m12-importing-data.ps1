@@ -22,7 +22,7 @@
 Import-Module SqlServer   
 
 $sqlParams = @{ 'ServerInstance' = 'localhost,1433'
-                'Database' = 'master'
+                'Database' = 'MyCoolDatabase'
                 'Username' = 'sa'
                 'Password' = 'passW0rd!'
                 'QueryTimeout' = 50000
@@ -36,8 +36,18 @@ function Reset-Table ()
 }
 
 # Let's see what we just imported
-$data = Import-Csv './Demo/CityData.csv'
-$data | Select-Object -First 10 | Format-Table
+$csvData = Import-Csv './Demo/CityData.csv'
+$csvData | Select-Object -First 10 | Format-Table
 
 
+$xmlData = [xml] (Get-Content './Demo/CityData.xml')
+
+# Display raw contents
+$xmlData.InnerXml
+$xmlData.SelectNodes("//System.Data.DataRow")
+
+foreach ($row in $xmlData)
+{
+  $xmlData.City
+}
 

@@ -16,11 +16,12 @@
 -----------------------------------------------------------------------------#>
 
 # Import our module, and setup a hash table with our values
-# so we can use splatting
+# so we can use splatting. Note, with our database now created, we can update
+# our parameter hash table to use MyCoolDatabase instead of the master
 Import-Module SqlServer   
 
 $sqlParams = @{ 'ServerInstance' = 'localhost,1433'
-                'Database' = 'master'
+                'Database' = 'MyCoolDatabase'
                 'Username' = 'sa'
                 'Password' = 'passW0rd!'
                 'QueryTimeout' = 50000
@@ -32,7 +33,7 @@ $sqlParams = @{ 'ServerInstance' = 'localhost,1433'
 function Show-Rows()
 {
   Clear-Host
-  $sql = 'SELECT * FROM MyCoolDatabase.dbo.City'
+  $sql = 'SELECT * FROM dbo.City'
   Invoke-SqlCmd -Query $sql @sqlParams | Format-Table  
 }
 
