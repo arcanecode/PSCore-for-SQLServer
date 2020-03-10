@@ -1,6 +1,6 @@
 <#-----------------------------------------------------------------------------
   PowerShell Core for SQL Server
-  Creating a Database
+  Exporting data to a file
 
   Author: Robert C. Cain | @ArcaneCode | arcanecode@gmail.com
           http://arcanecode.com

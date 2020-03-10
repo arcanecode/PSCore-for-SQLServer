@@ -1,6 +1,6 @@
 <#-----------------------------------------------------------------------------
   PowerShell Core for SQL Server
-  Creating a Database
+  Loading data into a database
 
   Author: Robert C. Cain | @ArcaneCode | arcanecode@gmail.com
           http://arcanecode.com

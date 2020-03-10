@@ -15,7 +15,7 @@
   projects.
 -----------------------------------------------------------------------------#>
 
-Invoke-Sqlcmd -Query "SELECT * FROM master.INFORMATION_SCHEMA.Tables" `
+Invoke-Sqlcmd -Query 'SELECT * FROM master.INFORMATION_SCHEMA.Tables' `
               -ServerInstance 'localhost,1433' `
               -Database 'master' `
               -Username 'sa' `
