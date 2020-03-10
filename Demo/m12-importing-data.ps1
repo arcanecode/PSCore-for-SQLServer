@@ -59,6 +59,7 @@ $xmlData
 
 # Importing JSON
 $jsonData = Get-Content -Path './Demo/CityData.json' -Raw  
+$jsonData
 $jsonData | 
   ConvertFrom-Json |
   Select-Object City, StateShort, StateFull, County, CityAlias
