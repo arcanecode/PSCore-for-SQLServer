@@ -37,7 +37,7 @@ function Show-Rows()
 }
 
 #------------------------------------------------------------------------------
-# Before we begin, let's create a small function to display the present rows
+# Updating using Invoke-SqlCmd
 #------------------------------------------------------------------------------
 # Refresh ourselves on what records are present
 Show-Rows
@@ -72,6 +72,7 @@ Show-Rows
 $pw = ConvertTo-SecureString "passW0rd!" -AsPlainText -Force
 $pscred = New-Object System.Management.Automation.PSCredential('sa', $pw)
 
+# Basic Read command
 Read-SqlTableData -Credential $pscred `
                   -ServerInstance 'localhost,1433' `
                   -DatabaseName 'MyCoolDatabase' `
@@ -83,6 +84,7 @@ Read-SqlTableData -Credential $pscred `
 
 
 # If you omit the column name parameter, all columns are returned
+Clear-Host
 Read-SqlTableData -Credential $pscred `
                   -ServerInstance 'localhost,1433' `
                   -DatabaseName 'MyCoolDatabase' `
@@ -92,6 +94,7 @@ Read-SqlTableData -Credential $pscred `
   Format-Table
 
 # You can also pick a subset of columns
+Clear-Host
 Read-SqlTableData -Credential $pscred `
                   -ServerInstance 'localhost,1433' `
                   -DatabaseName 'MyCoolDatabase' `
@@ -102,6 +105,7 @@ Read-SqlTableData -Credential $pscred `
   Format-Table
 
 # Sorting the output is also supported
+Clear-Host
 Read-SqlTableData -Credential $pscred `
                   -ServerInstance 'localhost,1433' `
                   -DatabaseName 'MyCoolDatabase' `
@@ -112,11 +116,23 @@ Read-SqlTableData -Credential $pscred `
                   -TopN 10 |
   Format-Table
 
+# Filtering is done after the data is returned
+Clear-Host
+Read-SqlTableData -Credential $pscred `
+  -ServerInstance 'localhost,1433' `
+  -DatabaseName 'MyCoolDatabase' `
+  -SchemaName 'dbo' `
+  -TableName 'City' `
+  -ColumnName 'City', 'StateShort', 'StateFull', 'County', 'CityAlias' `
+  -TopN 10 |
+  Where-Object StateShort -eq 'NY' |
+  Format-Table
 
 # There is a cmdlet for working with views, such as the view from the master db
+Clear-Host
 Read-SqlViewData -Credential $pscred `
                  -ServerInstance 'localhost,1433' `
-                 -DatabaseName 'master' `
+                 -DatabaseName 'MyCoolDatabase' `
                  -SchemaName 'INFORMATION_SCHEMA' `
                  -ViewName 'Tables' 
 
@@ -157,6 +173,7 @@ $cities | Write-SqlTableData `
             -TableName 'City' 
 
 # Read it back
+Clear-Host
 Read-SqlTableData -Credential $pscred `
                   -ServerInstance 'localhost,1433' `
                   -DatabaseName 'MyCoolDatabase' `
