@@ -79,9 +79,6 @@ $sqlSB = [System.Text.StringBuilder]::new()
 
 # Define the header for the SQL
 $sqlHeader = @"
-USE MyCoolDatabase
-GO
-
 INSERT INTO dbo.City 
   (City, StateShort, StateFull, County, CityAlias)
 VALUES
@@ -137,7 +134,7 @@ $sql = 'DROP TABLE MyCoolDatabase.dbo.City'
 Invoke-SqlCmd -Query $sql @sqlParams 
 
 # Now confirm it's gone
-$sql = 'SELECT * FROM master.INFORMATION_SCHEMA.Tables'
+$sql = 'SELECT * FROM MyCoolDatabase.INFORMATION_SCHEMA.Tables'
 Invoke-Sqlcmd -Query $sql @sqlParams
 
 # Convert the user id/password to a PS Credential

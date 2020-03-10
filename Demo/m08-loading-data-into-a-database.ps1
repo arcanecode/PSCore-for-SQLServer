@@ -41,9 +41,6 @@ function Show-Rows()
 # Method 1 - Use embedded SQL
 #------------------------------------------------------------------------------
 $sql = @"
-  USE MyCoolDatabase
-  GO
-
   INSERT INTO dbo.City 
     (City, StateShort, StateFull, County, CityAlias)
   VALUES
@@ -67,9 +64,6 @@ $county = 'SUFFOLK'
 $cityAlias = 'Holtsville'
 
 $sql = @"
-  USE MyCoolDatabase
-  GO
-
   INSERT INTO dbo.City 
     (City, StateShort, StateFull, County, CityAlias)
   VALUES
@@ -114,9 +108,6 @@ $cities = @( [PSCustomObject]@{ City = 'Adjuntas';
 foreach($currentCity in $cities)
 {
   $sql = @"
-  USE MyCoolDatabase
-  GO
-
   INSERT INTO dbo.City 
     (City, StateShort, StateFull, County, CityAlias)
   VALUES
