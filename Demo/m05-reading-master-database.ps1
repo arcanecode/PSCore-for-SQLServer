@@ -54,6 +54,7 @@ $tables
 $tables | Get-Member
 
 # Loop over it
+Clear-Host
 foreach ($table in $tables)
 {
   Write-Host "The table $($table.TABLE_NAME) is of type $($table.TABLE_TYPE)"
