@@ -1,5 +1,6 @@
 # PowerShell Core for SQL Server - Apress
-This project conatins the demo files and notes for the Apress Video "PowerShell Core for SQL Server"
+
+This project contains the demo files and notes for the Apress Video "PowerShell Core for SQL Server"
 
 ## Folders
 
@@ -13,18 +14,18 @@ The Extras folder has information on the cities data used for this course. In ad
 
 ### Author
 
-Robert C. Cain | @ArcaneCode | arcanecode@gmail.com 
+Robert C. Cain | @ArcaneCode | arcanecode@gmail.com
 
 ### Websites
 
 Github: http://arcanerepo.com
 
-Main: http://arcanecode.me 
+Main: http://arcanecode.me
 
 ### Copyright Notice
 
 This document is Copyright (c) 2016, 2020 Robert C. Cain. All rights reserved.
 
-The code samples herein is for demonstration purposes. No warranty or guarentee is implied or expressly granted. 
+The code samples herein is for demonstration purposes. No warranty or guarantee is implied or expressly granted.
 
 This document may not be reproduced in whole or in part without the express written consent of the author. Information within can be used within your own projects.

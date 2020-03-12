@@ -1,5 +1,6 @@
 # Notes
-This folder has notes pertinent to the demo. Notes include such things as download paths and additional instructions. 
+
+This folder has notes pertinent to the demo. Notes include such things as download paths and additional instructions.
 
 ## Visual Studio Code Extensions
 
@@ -22,7 +23,7 @@ Robert C. Cain | @ArcaneCode | arcanecode@gmail.com
 ### Websites
 
 Github: http://arcanerepo.com
-Main: http://arcanecode.me 
+Main: http://arcanecode.me
 
 ### Copyright Notice
 
